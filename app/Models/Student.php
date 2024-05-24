@@ -24,4 +24,7 @@ class Student extends Model {
 		'date_of_birth',
 	];
 
+	public function trainings() {
+		return $this->belongsToMany(Training::class)->withTimestamps();
+	}
 }

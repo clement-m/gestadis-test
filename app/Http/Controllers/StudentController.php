@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Models\Student;
+
+use App\Models\Training;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class StudentController extends Controller {
 	/**
@@ -12,7 +14,11 @@ class StudentController extends Controller {
 	 */
 	public function index() {
 		$students = Student::all();
-		return response()->json($students, 201);
+
+		return response()->json([
+			'message' => 'count: ' . count($students),
+			'data' => $students,
+		], 200);
 	}
 
 	/**
@@ -26,16 +32,29 @@ class StudentController extends Controller {
 	 * Store a newly created resource in storage.
 	 */
 	public function store(Request $request) {
-		// $validated = $request->validate([
-		// 	'nom' => 'required|string|max:255',
-		// 	'prenom' => 'required|string|max:255',
-		// 	'email' => 'required|email|unique:eleves,email',
-		// ]);
+		try {
+			$validated = $request->validate([
+				'lastname' 			=> 'required|string|max:255',
+				'firstname' 		=> 'required|string|max:255',
+				'phone' 				=> 'nullable|string|max:20',
+				'email' 				=> 'required|email|unique:students,email',
+				'address' 			=> 'nullable|string|max:255',
+				'postal_code' 	=> 'nullable|string|max:10',
+				'city' 					=> 'nullable|string|max:255',
+				'date_of_birth' => 'required|date',
+			]);
 
-		// $eleve = Eleve::create($validated);
+			$student = Student::create($validated);
 
-		// return response()->json($eleve, 201);
-		return response()->json(['store add'], 201);
+			return response()->json([
+				'message' => 'Student #' . $student->id . ' succesfully added.',
+				'data' => $student,
+			], 201);
+		} catch (ValidationException $e) {
+			$errors = $e->validator->errors();
+
+			return response()->json($errors, 400);
+		}
 	}
 
 	/**
@@ -64,5 +83,28 @@ class StudentController extends Controller {
 	 */
 	public function destroy(Student $student) {
 		//
+	}
+
+	/**
+	 * Attach training to a student
+	 */
+	public function addTraining(Request $request) {
+		try {
+			$validated = $request->validate([
+				'student_id' => 'required|integer|exists:students,id',
+				'training_id' => 'required|integer|exists:trainings,id',
+			]);
+
+			$student = Student::findOrFail($validated['student_id']);
+			$training = Training::findOrFail($validated['training_id']);
+
+			$student->trainings()->attach($training);
+
+			return response()->json($student->load('trainings'), 201);
+		} catch (ValidationException $e) {
+			$errors = $e->validator->errors();
+
+			return response()->json($errors, 400);
+		}
 	}
 }
