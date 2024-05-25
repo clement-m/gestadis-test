@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
-
-use App\Models\Training;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Mail;
+
+use App\Models\Student;
+use App\Models\Training;
+use App\Mail\InscriptionFormationMail;
 
 class StudentController extends Controller {
 	/**
@@ -93,6 +95,8 @@ class StudentController extends Controller {
 			$training = Training::find($validated['training_id']);
 
 			$student->trainings()->attach($training);
+
+			Mail::to($student->email)->send(new InscriptionFormationMail($student, $training));
 
 			return response()->created(
 				$student->load('trainings'),
