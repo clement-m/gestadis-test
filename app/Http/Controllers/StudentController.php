@@ -15,10 +15,7 @@ class StudentController extends Controller {
 	public function index() {
 		$students = Student::all();
 
-		return response()->json([
-			'message' => 'count: ' . count($students),
-			'data' => $students,
-		], 200);
+		return response()->ok($students, 'List of ' . count($students) . ' students');
 	}
 
 	/**
@@ -46,14 +43,11 @@ class StudentController extends Controller {
 
 			$student = Student::create($validated);
 
-			return response()->json([
-				'message' => 'Student #' . $student->id . ' succesfully added.',
-				'data' => $student,
-			], 201);
+			return response()->created($student, 'Student #' . $student->id . ' succesfully added.');
 		} catch (ValidationException $e) {
 			$errors = $e->validator->errors();
 
-			return response()->json($errors, 400);
+			return response()->badRequest($errors);
 		}
 	}
 
@@ -88,23 +82,26 @@ class StudentController extends Controller {
 	/**
 	 * Attach training to a student
 	 */
-	public function addTraining(Request $request) {
+	public function attachTraining(Request $request) {
 		try {
 			$validated = $request->validate([
 				'student_id' => 'required|integer|exists:students,id',
 				'training_id' => 'required|integer|exists:trainings,id',
 			]);
 
-			$student = Student::findOrFail($validated['student_id']);
-			$training = Training::findOrFail($validated['training_id']);
+			$student = Student::find($validated['student_id']);
+			$training = Training::find($validated['training_id']);
 
 			$student->trainings()->attach($training);
 
-			return response()->json($student->load('trainings'), 201);
+			return response()->created(
+				$student->load('trainings'),
+				'Student #' . $student->id . ' succesfully added.'
+			);
 		} catch (ValidationException $e) {
 			$errors = $e->validator->errors();
 
-			return response()->json($errors, 400);
+			return response()->badRequest($errors);
 		}
 	}
 }

@@ -11,8 +11,9 @@ class TrainingController extends Controller {
 	 * Display a listing of the resource.
 	 */
 	public function index() {
-		$students = Training::all();
-		return response()->json($students, 201);
+		$trainings = Training::all();
+
+		return response()->ok($trainings, 'List of ' . count($trainings) . ' trainings');
 	}
 
 	/**

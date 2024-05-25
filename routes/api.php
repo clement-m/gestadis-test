@@ -13,6 +13,6 @@ Route::get('/user', function (Request $request) {
 Route::get('/student', [StudentController::class, 'index']);
 Route::post('/student', [StudentController::class, 'store']);
 
-Route::post('/student/add/training', [StudentController::class, 'addTraining']);
+Route::post('/student/add/training', [StudentController::class, 'attachTraining']);
 
 Route::get('/training', [TrainingController::class, 'index']);
