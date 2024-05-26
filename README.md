@@ -11,11 +11,9 @@ Ce projet est une API Laravel permettant la gestion des étudiants et l'associat
 ## Installation
 
 1. **Cloner le dépôt** :
-
    ```bash
-   git clone https://github.com/votre-repo/laravel-student-management.git
-   cd laravel-student-management
-
+   git clone https://github.com/clement-m/gestadis-test.git
+   cd gestadis-test
 2. **Installer les dépendances**
 
     ```bash
