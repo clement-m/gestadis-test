@@ -60,10 +60,8 @@ L'API sera disponible à l'adresse http://localhost:8000.
     "code_postal": "string",
     "ville": "string",
     "date_de_naissance": "date",
-    "coordonnees_gps": {
-      "latitude": "float",
-      "longitude": "float"
-    }
+    "latitude": "float",
+    "longitude": "float"
   }
 
 Associer un étudiant à une formation
