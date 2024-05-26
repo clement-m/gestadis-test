@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Mail;
 
 use App\Models\Student;
 use App\Models\Training;
+
 use App\Mail\InscriptionFormationMail;
+use App\Services\Geocode;
 
 class StudentController extends Controller {
 	/**
@@ -30,7 +32,7 @@ class StudentController extends Controller {
 	/**
 	 * Store a newly created resource in storage.
 	 */
-	public function store(Request $request) {
+	public function store(Request $request, Geocode $geo) {
 		try {
 			$validated = $request->validate([
 				'lastname' 			=> 'required|string|max:255',
@@ -42,6 +44,8 @@ class StudentController extends Controller {
 				'city' 					=> 'nullable|string|max:255',
 				'date_of_birth' => 'required|date',
 			]);
+
+			$validated = $geo->fillGPSCoord($validated);
 
 			$student = Student::create($validated);
 

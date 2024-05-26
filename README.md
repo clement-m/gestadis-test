@@ -78,5 +78,11 @@ Associer un étudiant à une formation
     "training_id": "integer"
   }
 
+API Geocode: exemple de configuration (.env)
+
+- **GOOGLE_MAP_GEOCODE_API_URL** : "https://maps.googleapis.com/maps/api/geocode/json"
+- **GOOGLE_MAPS_LOCALE** : "France"
+- **GOOGLE_MAPS_GEOCODING_API_KEY** : "Votre clé API google geocode"
+
 Licence
 Ce projet est sous licence MIT.

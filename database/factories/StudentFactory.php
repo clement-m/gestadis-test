@@ -31,6 +31,8 @@ class StudentFactory extends Factory {
 			'postal_code' => $this->faker->postcode,
 			'city' => $this->faker->city,
 			'date_of_birth' => $this->faker->date(),
+			'latitude' => $this->faker->latitude(),
+			'longitude' => $this->faker->longitude(),
 		];
 	}
 }

@@ -22,6 +22,8 @@ class Student extends Model {
 		'postal_code',
 		'city',
 		'date_of_birth',
+		'latitude',
+		'longitude'
 	];
 
 	public function trainings() {

@@ -19,6 +19,8 @@ return new class extends Migration {
 			$table->string('postal_code', 10)->nullable();
 			$table->string('city', 255)->nullable();
 			$table->date('date_of_birth');
+			$table->float('latitude', 10, 7)->nullable();
+			$table->float('longitude', 10, 7)->nullable();
 			$table->timestamps();
 		});
 	}
