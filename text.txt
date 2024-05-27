@@ -1,1 +1,18 @@
-install api
+- options et idées:
+  - l'ajout de tests vis à vis de l'api google 
+      pour s'assurer de la conformité du format de retour. S'il y a mise à jour)
+
+  - l'ajout de tests (phpunit) vis à vis des endpoints
+
+  - optionnellement pour la partie geolocalisation, coté front on pourrait utiliser une carte
+  pour vérifier la position trouvé via l'api. Et limiter les erreurs d'adresses.
+     - ici je manque de contexte et ma remarque est peut-être hors-sujet (qui remplis la fiche?)
+     - dans quel but à ton besoin de ces données gps
+
+  - la suite du développement des endpoints (car ici on est sur un test, mais je suppose qu'il faudrait gérer coder le CRUD complet)
+
+  - sécurité, potentiellement gérer une méthode d'authentification (apikey) pour limiter les accès à l'api aux
+  personnes admises par notre société uniquement.
+  (et éviter des problèmes comme les surcouts lié à la consommation de l'api google par exemple)
+
+  - à étudier mais on peut potentiellement obtenir des informations complémentaire via france connect. (hypothèse que je n'ai pas vérifié)
