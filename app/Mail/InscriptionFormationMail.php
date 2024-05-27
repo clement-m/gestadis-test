@@ -39,7 +39,7 @@ class InscriptionFormationMail extends Mailable {
 	 */
 	public function envelope(): Envelope {
 		return new Envelope(
-			subject: 'Inscription Formation Mail',
+			subject: "Mail d'inscription en formation",
 		);
 	}
 
