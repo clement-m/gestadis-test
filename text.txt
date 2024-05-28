@@ -16,3 +16,5 @@
   (et éviter des problèmes comme les surcouts lié à la consommation de l'api google par exemple)
 
   - à étudier mais on peut potentiellement obtenir des informations complémentaire via france connect. (hypothèse que je n'ai pas vérifié)
+
+  /!\ j'ai oublié de précisé que j'ai créer les mails en "log" mais il faut le serveur mail pour tester via smtp
